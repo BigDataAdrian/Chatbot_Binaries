@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-    Location();
     Language();
     Sound();
     Dark();
@@ -145,20 +144,6 @@ function Traduction() {
         }
     });
 }
-function Location() {
-    $.ajax({
-        type: 'POST',
-        url: '/Home/Load_location',
-        contenttype: "application/json; charset=utf-8",
-        success: function (r) {
-            if (r.status == "success") {
-                $('#Location').text(r.location);
-            } else {
-                console.log(r.message);
-            }
-        }
-    });
-}
 function Language() {
     $.ajax({
         type: 'POST',
@@ -262,7 +247,7 @@ function openRightSide(ID) {
                 var element = document.getElementById("Chat_" + ID);
                 element.classList.add("active");
                 $('#Chat_Tittle_Message').text(r.tittle);
-                document.title ="Booti "+ r.tittle;
+                document.title = "Booti " + r.tittle;
                 $('#Tittle_About').text(r.tittle);
                 $('#Subtittle_About').text(r.subtittle);
                 $('#Description').html(r.description);
@@ -413,15 +398,11 @@ function SendMessage(Message) {
         },
         success: function (r) {
             if (r.status == "success") {
-                if (r.next_Response == 1) {
-                    var Chat_Before = document.getElementById('chat_Main');
-                    var Position = Chat_Before.clientHeight;
-                    Chat_Before.insertAdjacentHTML('beforeend', r.record);
-
-                    Chat_Before = document.getElementById('chat_Main');
-                    const Scroll = document.getElementById(r.scrollId);
-                    Scroll.scrollIntoView({ behavior: "smooth"});
-                }
+                var Chat_Before = document.getElementById('chat_Main');
+                Chat_Before.insertAdjacentHTML('beforeend', r.record);
+                Chat_Before = document.getElementById('chat_Main');
+                const Scroll = document.getElementById(r.scrollId);
+                Scroll.scrollIntoView({ behavior: "smooth" });
                 $.ajax({
                     type: 'POST',
                     url: '/Home/Answer',
