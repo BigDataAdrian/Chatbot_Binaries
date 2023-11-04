@@ -397,7 +397,7 @@ html {
 }
 
 .header {
-    /*height: 80px;*/
+  /*  height: 80px;*/
     width: 100%;
     border-bottom: 1px solid var(--border-color);
     display: flex;
